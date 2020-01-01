@@ -1,5 +1,5 @@
 ﻿namespace Log5RLibs.utils {
-    public enum AliceConsoleStatusEnum {
+    public enum AlStatusEnum {
         Information,
         Caution,
         Warning,

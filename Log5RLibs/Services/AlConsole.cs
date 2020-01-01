@@ -10,18 +10,19 @@ namespace Log5RLibs.Services {
         private static readonly ConsoleColor ERROR = ConsoleColor.Red;
 
         public static void Write(Enum status, [Optional] string statusName, string threadName, string message) {
+            Main.Main.runMessage();
             Console.Write($"[ {DateTime.Now:G} ] ");
             switch (status) {
-                case AliceConsoleStatusEnum.Information:
+                case AlStatusEnum.Information:
                     AliceInputUtil.AlConsoleInputUtil(statusName, "Information", INFORMATION);
                     break;
-                case AliceConsoleStatusEnum.Caution:
+                case AlStatusEnum.Caution:
                     AliceInputUtil.AlConsoleInputUtil(statusName, "Caution", CAUTION);
                     break;
-                case AliceConsoleStatusEnum.Warning:
+                case AlStatusEnum.Warning:
                     AliceInputUtil.AlConsoleInputUtil(statusName, "Warning", WARNING);
                     break;
-                case AliceConsoleStatusEnum.Error:
+                case AlStatusEnum.Error:
                     AliceInputUtil.AlConsoleInputUtil(statusName, "Error", ERROR);
                     break;
                 default:
