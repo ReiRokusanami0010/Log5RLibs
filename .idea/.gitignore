@@ -1,0 +1,9 @@
+﻿# Default ignored files
+.git
+.idea
+/.idea.Log5RLibs
+/.idea.Log5RLibs/*.xml
+/.idea/workspace.xml
+/Log5RLibs/bin
+/Log5RLibs/obj
+/Log5RLibs/.gitignore
