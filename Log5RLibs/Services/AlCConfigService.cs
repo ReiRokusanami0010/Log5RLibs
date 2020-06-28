@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
@@ -12,6 +11,12 @@ namespace Log5RLibs.Services {
         private static readonly string DiName = $"{"DirectoryInfo",-15}";
         private static readonly string TdName = $"{"ConfigService",-15}";
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="presetName"></param>
+        /// <param name="presetScheme"></param>
+        /// <param name="isOverride"></param>
         public static void Flush(string presetName, AlCConfigSchemeClass presetScheme, bool isOverride) {
             AlConsole.WriteLine(AlStatusEnum.Information, 
                 null, TdName, $"Log5RLibs-Flush ConfigScheme Name:{presetName}");

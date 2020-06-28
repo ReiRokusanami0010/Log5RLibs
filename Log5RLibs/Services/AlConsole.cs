@@ -6,33 +6,43 @@ using static Log5RLibs.Scheme.DefaultScheme;
 
 namespace Log5RLibs.Services {
     public class AlConsole {
+        private static readonly object _lockObject = new object();
         private const ConsoleColor INFORMATION = ConsoleColor.Cyan;
         private const ConsoleColor CAUTION = ConsoleColor.Yellow;
         private const ConsoleColor WARNING = ConsoleColor.Magenta;
         private const ConsoleColor ERROR = ConsoleColor.Red;
 
         public static void Write(Enum status, [Optional] string statusName, string threadName, string message) {
-            Console.Write($"[ {DateTime.Now:G} ] ");
-            switch (status) {
-                case AlStatusEnum.Information:
-                    AliceInputUtil.AlConsoleInputUtil(statusName, "Information", INFORMATION);
-                    break;
-                case AlStatusEnum.Caution:
-                    AliceInputUtil.AlConsoleInputUtil(statusName, "Caution", CAUTION);
-                    break;
-                case AlStatusEnum.Warning:
-                    AliceInputUtil.AlConsoleInputUtil(statusName, "Warning", WARNING);
-                    break;
-                case AlStatusEnum.Error:
-                    AliceInputUtil.AlConsoleInputUtil(statusName, "Error", ERROR);
-                    break;
-                default:
-                    AliceInputUtil.AlConsoleInputUtil(statusName, "NoSetStatus", ConsoleColor.Gray);
-                    break;
+            lock (_lockObject) {
+                Console.Write($"[ {DateTime.Now:G} ] ");
+                switch (status) {
+                    case AlStatusEnum.Information:
+                        AliceInputUtil.AlConsoleInputUtil(statusName, "Information", INFORMATION);
+                        break;
+                    case AlStatusEnum.Caution:
+                        AliceInputUtil.AlConsoleInputUtil(statusName, "Caution", CAUTION);
+                        break;
+                    case AlStatusEnum.Warning:
+                        AliceInputUtil.AlConsoleInputUtil(statusName, "Warning", WARNING);
+                        break;
+                    case AlStatusEnum.Error:
+                        AliceInputUtil.AlConsoleInputUtil(statusName, "Error", ERROR);
+                        break;
+                    default:
+                        AliceInputUtil.AlConsoleInputUtil(statusName, "NoSetStatus", ConsoleColor.Gray);
+                        break;
+                }
+
+                Console.Write($"[ {threadName} ] ");
+                Console.Write(message);
             }
-            
-            Console.Write($"[ {threadName} ] ");
-            Console.Write(message);
+
+            //Log Buffer Stored.
+            AliceLogBuffer.AlBufferLogStore(
+                    AliceInputUtil.ToString(status, statusName) + 
+                    $" [ {threadName} ] " + 
+                    message
+            );
         }
 
 
